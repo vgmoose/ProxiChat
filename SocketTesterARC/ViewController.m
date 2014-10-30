@@ -5,11 +5,11 @@
 //  Created by Kyeck Philipp on 01.06.12.
 //  Copyright (c) 2012 beta_interactive. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 
 @interface ViewController ()
-
+@property (weak, nonatomic) IBOutlet UIImageView *main_circle;
 @end
 
 @implementation ViewController
@@ -17,6 +17,7 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    srand48(time(0));
     
     // create socket.io client instance
     socketIO = [[SocketIO alloc] initWithDelegate:self];
@@ -28,20 +29,58 @@
     // if you want to use https instead of http
     // socketIO.useSecure = YES;
     
+    // startup location stuffs
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    
+    // set a random image if one has not been set yet
+    NSString *resPath = [[NSBundle mainBundle] resourcePath];
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:resPath error:nil];
+    
+    int size = [filenames count];
+    int rando;
+    do
+    {
+        rando = drand48()*size;
+    } while (!([filenames[rando] hasSuffix:@".png"] || [filenames[rando] hasSuffix:@".tif"]));
+    
+    UIImage *image = [UIImage imageNamed: filenames[rando]];
+    [_main_circle setImage:image];
+    
+    
+    // crop the image into a circle
+    CALayer *imageLayer = _main_circle.layer;
+    [imageLayer setCornerRadius:_main_circle.frame.size.width/2];
+    [imageLayer setBorderWidth:1];
+    [imageLayer setMasksToBounds:YES];
+    
+    _main_circle.layer.shadowColor = [UIColor purpleColor].CGColor;
+    _main_circle.layer.shadowOffset = CGSizeMake(0, 1);
+    _main_circle.layer.shadowOpacity = 1;
+    _main_circle.layer.shadowRadius = 40.0;
+    _main_circle.clipsToBounds = NO;
+
+//    int pants = [count];
+
+
+    
     // pass cookie(s) to handshake endpoint (e.g. for auth)
     NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    @"localhost", NSHTTPCookieDomain,
-                                    @"/", NSHTTPCookiePath,
-                                    @"auth", NSHTTPCookieName,
-                                    @"56cdea636acdf132", NSHTTPCookieValue,
-                                    nil];
+                                @"localhost", NSHTTPCookieDomain,
+                                @"/", NSHTTPCookiePath,
+                                @"auth", NSHTTPCookieName,
+                                @"56cdea636acdf132", NSHTTPCookieValue,
+                                nil];
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:properties];
     NSArray *cookies = [NSArray arrayWithObjects:cookie, nil];
     
     socketIO.cookies = cookies;
     
+    // try to load an ID (defaults to zero)
+    _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+    
     // connect to the socket.io server that is running locally at port 3000
-    [socketIO connectToHost:@"localhost" onPort:3000];
+    [socketIO connectToHost:@"localhost" onPort:3006];
 }
 
 # pragma mark -
@@ -50,12 +89,38 @@
 - (void) socketIODidConnect:(SocketIO *)socket
 {
     NSLog(@"socket.io connected.");
+    
+    if (_id == 0)
+    {
+        NSLog(@"Requesting an ID...");
+        [socketIO sendEvent:@"get_new_id" withData:@"testWithString"];
+    }
+    else
+    {
+        NSLog(@"ID is %@, telling server", _id);
+        [socketIO sendEvent:@"login" withData:[NSString stringWithFormat: @"%@", _id]];
+    }
+    
+    [socketIO sendEvent:@"set_status" withData: @"wasup"];
+    [self.locationManager startUpdatingLocation];
 }
 
 - (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
     NSLog(@"didReceiveEvent()");
+    
+    if ([packet.name isEqualToString:@"assign_id"])
+    {
+        _id = packet.args[0][@"id"];
+        [[NSUserDefaults standardUserDefaults] setObject:_id forKey:@"userId"];
+        NSLog(@"Got ID: %@", _id);
+    }
+    else if ([packet.name isEqualToString:@"new_people"])
+    {
+        NSLog(@"%@", packet.args);
+    }
 
+    
     // test acknowledge
     SocketIOCallback cb = ^(id argsData) {
         NSDictionary *response = argsData;
@@ -106,5 +171,13 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = [locations lastObject];
+    [socketIO sendEvent:@"set_coordinates" withData: [NSString stringWithFormat:@"%f %f", location.coordinate.latitude, location.coordinate.longitude]];
+    [self.locationManager stopUpdatingLocation];
+    [socketIO sendEvent:@"get_people" withData: @"testWithString"];
+//    NSLog(@"HERE'S THE THING lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
+}
 
 @end

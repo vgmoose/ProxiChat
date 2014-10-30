@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "SocketIO.h"
 
-@interface ViewController : UIViewController <SocketIODelegate>
+@interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate>
 {
     SocketIO *socketIO;
+    NSString* _id;
 }
+@property CLLocationManager *locationManager;
 
 @end
