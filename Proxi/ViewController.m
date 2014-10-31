@@ -1,3 +1,10 @@
+//
+//  ViewController.m
+//  SocketTesterARC
+//
+//  Created by Kyeck Philipp on 01.06.12.
+//  Copyright (c) 2012 beta_interactive. All rights reserved.
+//
 #import <QuartzCore/QuartzCore.h>
 #import "ViewController.h"
 
@@ -8,29 +15,10 @@
 
 @implementation ViewController
 
-- (void) viewWillAppear:(BOOL)animated
-{
-//    CALayer* containerLayer = _container.layer;
-//    containerLayer.shadowColor = [UIColor blackColor].CGColor;
-//    containerLayer.shadowRadius = 5.f;
-//    containerLayer.shadowOffset = CGSizeMake(0.f, 5.f);
-//    containerLayer.shadowOpacity = .5f;
-//    
-//    //
-//    //    UIImageView* image = _main_circle;
-//    
-//    
-//    //
-//    // add masked image layer into container layer so that it's shadowed
-//    [containerLayer addSublayer:image.layer];
-//    
-//    // add container including masked image and shadow into view
-//    [self.view.layer addSublayer:containerLayer];
-
-}
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    srand48(time(0));
     
     // create socket.io client instance
     socketIO = [[SocketIO alloc] initWithDelegate:self];
@@ -46,7 +34,39 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     
+    // set a random image if one has not been set yet
+    NSString *resPath = [[NSBundle mainBundle] resourcePath];
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:resPath error:nil];
     
+    int size = [filenames count];
+    int rando;
+    do
+    {
+        rando = drand48()*size;
+    } while (!([filenames[rando] hasSuffix:@".png"] || [filenames[rando] hasSuffix:@".tif"]));
+    
+    
+    // the image we're going to mask and shadow
+    UIImageView* image = _main_circle;
+    [image setImage:[UIImage imageNamed:filenames[rando]]];
+//    image.center = self.view.center;
+    
+    // make new layer to contain shadow and masked image
+    CALayer* containerLayer = [CALayer layer];
+    containerLayer.shadowColor = [UIColor blackColor].CGColor;
+    containerLayer.shadowRadius = 5.f;
+    containerLayer.shadowOffset = CGSizeMake(0.f, 5.f);
+    containerLayer.shadowOpacity = .5f;
+    
+    // use the image's layer to mask the image into a circle
+    image.layer.cornerRadius = roundf(image.frame.size.width/2.0);
+    image.layer.masksToBounds = YES;
+    
+    // add masked image layer into container layer so that it's shadowed
+    [containerLayer addSublayer:image.layer];
+    
+    // add container including masked image and shadow into view
+    [self.view.layer addSublayer:containerLayer];
 
     
     // pass cookie(s) to handshake endpoint (e.g. for auth)
@@ -65,7 +85,7 @@
     _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     
     // connect to the socket.io server that is running locally at port 3000
-    [socketIO connectToHost:@"localhost" onPort:3007];
+    [socketIO connectToHost:@"localhost" onPort:3006];
 }
 
 # pragma mark -
@@ -162,8 +182,6 @@
     [socketIO sendEvent:@"set_coordinates" withData: [NSString stringWithFormat:@"%f %f", location.coordinate.latitude, location.coordinate.longitude]];
     [self.locationManager stopUpdatingLocation];
     [socketIO sendEvent:@"get_people" withData: @"testWithString"];
-//    [UIView animateWithDuration:1.0 animations:^{
-//        _main_circle.frame =  CGRectMake(_main_circle.frame.origin.x, _main_circle.frame.origin.y, 150, 150);}];
 //    NSLog(@"HERE'S THE THING lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
 }
 

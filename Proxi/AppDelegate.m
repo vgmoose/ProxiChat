@@ -17,15 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-//    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-//    UIStoryboard*  sb = [UIStoryboard storyboardWithName:@"Main_iPhone"
-//                                                  bundle:nil];
-//    self.viewController = [sb instantiateViewControllerWithIdentifier:@"VGS"];
-//    NSLog(@"%@", self.viewController);
-//    self.window.rootViewController = self.viewController;
-//    [self.window makeKeyAndVisible];
+    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    self.window.rootViewController = self.viewController;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
