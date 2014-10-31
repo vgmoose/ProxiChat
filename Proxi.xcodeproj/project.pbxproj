@@ -64,7 +64,6 @@
 		9C00AE651A032B7300E1EADC /* SocketTesterARC-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ADCCBA915790D760022990C /* SocketTesterARC-Info.plist */; };
 		9C00AE661A032B7400E1EADC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ADCCBAA15790D760022990C /* InfoPlist.strings */; };
 		9C7B41C81A03330400DAB5D7 /* mainView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C7B41C71A03330400DAB5D7 /* mainView.storyboard */; };
-		9C7B41CE1A04090D00DAB5D7 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C7B41CD1A04090D00DAB5D7 /* ContainerViewController.m */; };
 		9CCC6AE41A021D5B0027EDAA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CCC6AE31A021D5B0027EDAA /* CoreLocation.framework */; };
 		C9E391A215E2A1B00004693A /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E391A115E2A1B00004693A /* SocketIOJSONSerialization.m */; };
 /* End PBXBuildFile section */
@@ -138,8 +137,6 @@
 		9C00AE3D1A0328AE00E1EADC /* settingsb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsb_.png; sourceTree = "<group>"; };
 		9C00AE3E1A0328AE00E1EADC /* starb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starb_.png; sourceTree = "<group>"; };
 		9C7B41C71A03330400DAB5D7 /* mainView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = mainView.storyboard; path = ../mainView.storyboard; sourceTree = "<group>"; };
-		9C7B41CC1A04090D00DAB5D7 /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContainerViewController.h; path = ../ContainerViewController.h; sourceTree = "<group>"; };
-		9C7B41CD1A04090D00DAB5D7 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ContainerViewController.m; path = ../ContainerViewController.m; sourceTree = "<group>"; };
 		9CCC6AE31A021D5B0027EDAA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C9E391A015E2A1B00004693A /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = SOURCE_ROOT; };
 		C9E391A115E2A1B00004693A /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = SOURCE_ROOT; };
@@ -218,8 +215,6 @@
 				4A4453791589EE7D00B44ABB /* SocketRocket */,
 				4ADCCBB015790D760022990C /* AppDelegate.h */,
 				9C7B41C71A03330400DAB5D7 /* mainView.storyboard */,
-				9C7B41CC1A04090D00DAB5D7 /* ContainerViewController.h */,
-				9C7B41CD1A04090D00DAB5D7 /* ContainerViewController.m */,
 				4ADCCBB115790D760022990C /* AppDelegate.m */,
 				4ADCCBB315790D760022990C /* ViewController.h */,
 				4ADCCBB415790D760022990C /* ViewController.m */,
@@ -408,7 +403,6 @@
 				4ADCCBAE15790D760022990C /* main.m in Sources */,
 				4ADCCBB215790D760022990C /* AppDelegate.m in Sources */,
 				4ADCCBB515790D760022990C /* ViewController.m in Sources */,
-				9C7B41CE1A04090D00DAB5D7 /* ContainerViewController.m in Sources */,
 				509FD4691A044D1700B284B8 /* SRWebSocket.m in Sources */,
 				C9E391A215E2A1B00004693A /* SocketIOJSONSerialization.m in Sources */,
 				4AD96DF41680853E00D9E42D /* SocketIOPacket.m in Sources */,

@@ -4,30 +4,11 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (weak, nonatomic) IBOutlet UIImageView *main_circle;
+
 @end
 
 @implementation ViewController
 
-- (void) viewWillAppear:(BOOL)animated
-{
-//    CALayer* containerLayer = _container.layer;
-//    containerLayer.shadowColor = [UIColor blackColor].CGColor;
-//    containerLayer.shadowRadius = 5.f;
-//    containerLayer.shadowOffset = CGSizeMake(0.f, 5.f);
-//    containerLayer.shadowOpacity = .5f;
-//    
-//    //
-//    //    UIImageView* image = _main_circle;
-//    
-//    
-//    //
-//    // add masked image layer into container layer so that it's shadowed
-//    [containerLayer addSublayer:image.layer];
-//    
-//    // add container including masked image and shadow into view
-//    [self.view.layer addSublayer:containerLayer];
-
-}
 - (void) viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +28,43 @@
     self.locationManager.delegate = self;
     
     
-
+    
+    srand48(time(0));
+    
+    // set a random image if one has not been set yet
+    NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
+    NSLog(@"FILESYS: %@", bundleRoot);
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundleRoot error:nil];
+    NSLog(@"files: %@", filenames);
+    int size = [filenames count];
+    int rando;
+    
+    while (true)
+    {
+        rando = drand48()*size;
+        if ([filenames[rando] hasSuffix:@".png"] && ![filenames[rando] hasSuffix:@"b_.png"])
+            break;
+    }
+    
+    NSLog(@"Ch0osen file is : %@", filenames[rando]);
+    NSLog(@"%@", _main_circle);
+    
+    // set the image
+    [_main_circle setImage:[UIImage imageNamed:filenames[rando]]];
+    
+    float size2 = self.container.frame.size.width;
+    
+    [self.main_circle.layer setCornerRadius:size2/2];
+    [self.main_circle.layer setMasksToBounds:YES];
+    self.main_circle.clipsToBounds = YES;
+    
+    self.container.backgroundColor = [UIColor clearColor];
+    self.container.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.container.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.container.layer.shadowRadius = 5.f;
+    self.container.layer.shadowOffset = CGSizeMake(0.f, 5.f);
+    self.container.layer.shadowOpacity = .5f;
+    self.container.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.container.bounds cornerRadius:size2/2].CGPath;
     
     // pass cookie(s) to handshake endpoint (e.g. for auth)
     NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -127,6 +144,7 @@
     
     NSArray *arr = [NSArray arrayWithObjects:@"test1", @"test2", nil];
     [socketIO sendEvent:@"welcome" withData:arr];
+    
 }
 
 - (void) socketIO:(SocketIO *)socket onError:(NSError *)error

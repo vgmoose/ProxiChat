@@ -28,33 +28,7 @@
 {
     [super viewDidLoad];
     
-    srand48(time(0));
-
-    // set a random image if one has not been set yet
-    NSString *bundleRoot = [[NSBundle mainBundle] bundlePath];
-    NSLog(@"FILESYS: %@", bundleRoot);
-    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundleRoot error:nil];
-    NSLog(@"files: %@", filenames);
-    int size = [filenames count];
-    int rando;
-    
-    while (true)
-    {
-        rando = drand48()*size;
-        if ([filenames[rando] hasSuffix:@".png"] && ![filenames[rando] hasSuffix:@"b_.png"])
-            break;
-    }
-    
-    NSLog(@"Ch0osen file is : %@", filenames[rando]);
-    NSLog(@"%@", _main_circle);
-    //
-    // the image we're going to mask and shadow
-    UIImageView* image = _main_circle;
-    [image setImage:[UIImage imageNamed:filenames[rando]]];
-    ////    image.center = self.view.center;
-    // use the image's layer to mask the image into a circle
-    image.layer.cornerRadius = roundf(image.frame.size.width/2.0);
-    image.layer.masksToBounds = YES;
+   
    
 }
 
