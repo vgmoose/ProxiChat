@@ -10,43 +10,31 @@
 	<string>Proxi</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>B1F082AC-80A5-4933-B289-DE0CCA577EFB</key>
-		<string>https://github.com/square/SocketRocket.git</string>
-		<key>EFA10D94-B693-40EB-8550-3AC11CF40CA4</key>
-		<string>https://github.com/francoisp/socket.IO-objc.git</string>
+		<key>43AC92FD7017ECDE18489EEA6AD2FD795E158D7E</key>
+		<string>https://github.com/vgmoose/ProxiChat.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Proxi.xcodeproj/project.xcworkspace</string>
+	<string>Proxi.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>B1F082AC-80A5-4933-B289-DE0CCA577EFB</key>
-		<string>../../submodules/socket-rocket</string>
-		<key>EFA10D94-B693-40EB-8550-3AC11CF40CA4</key>
+		<key>43AC92FD7017ECDE18489EEA6AD2FD795E158D7E</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/francoisp/socket.IO-objc.git</string>
+	<string>https://github.com/vgmoose/ProxiChat.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EFA10D94-B693-40EB-8550-3AC11CF40CA4</string>
+	<string>43AC92FD7017ECDE18489EEA6AD2FD795E158D7E</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>B1F082AC-80A5-4933-B289-DE0CCA577EFB</string>
+			<string>43AC92FD7017ECDE18489EEA6AD2FD795E158D7E</string>
 			<key>IDESourceControlWCCName</key>
-			<string>socket-rocket</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EFA10D94-B693-40EB-8550-3AC11CF40CA4</string>
-			<key>IDESourceControlWCCName</key>
-			<string>socket.IO-objc</string>
+			<string>ProxiChat</string>
 		</dict>
 	</array>
 </dict>

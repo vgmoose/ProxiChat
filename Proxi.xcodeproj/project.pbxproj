@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4A444FA11589E28800B44ABB /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A444FA01589E28800B44ABB /* libicucore.dylib */; };
 		4A444FA31589E29500B44ABB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A444FA21589E29500B44ABB /* Security.framework */; };
-		4A4453831589EE9100B44ABB /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A4453801589EE9100B44ABB /* SRWebSocket.m */; };
 		4AD96DF41680853E00D9E42D /* SocketIOPacket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD96DF31680853E00D9E42D /* SocketIOPacket.m */; };
 		4AD96DF816808B7900D9E42D /* SocketIOTransportWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD96DF716808B7900D9E42D /* SocketIOTransportWebsocket.m */; };
 		4AD96DFC16822DE300D9E42D /* SocketIOTransportXHR.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AD96DFB16822DE300D9E42D /* SocketIOTransportXHR.m */; };
@@ -23,6 +22,7 @@
 		4ADCCBF115790FD30022990C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADCCBF015790FD30022990C /* MobileCoreServices.framework */; };
 		4ADCCBF315790FDF0022990C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADCCBF215790FDF0022990C /* SystemConfiguration.framework */; };
 		4ADCCD4D157915F00022990C /* SocketIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCCBC715790DEC0022990C /* SocketIO.m */; };
+		509FD4691A044D1700B284B8 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 509FD4681A044D1700B284B8 /* SRWebSocket.m */; };
 		9C00ADA81A030FF700E1EADC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C00ADA71A030FF700E1EADC /* QuartzCore.framework */; };
 		9C00AE3F1A0328AE00E1EADC /* chatb_.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C00AE381A0328AE00E1EADC /* chatb_.png */; };
 		9C00AE401A0328AE00E1EADC /* circleb_.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C00AE391A0328AE00E1EADC /* circleb_.png */; };
@@ -72,9 +72,6 @@
 /* Begin PBXFileReference section */
 		4A444FA01589E28800B44ABB /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		4A444FA21589E29500B44ABB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		4A44537E1589EE9100B44ABB /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SocketRocket-Prefix.pch"; path = "submodules/socket-rocket/SocketRocket/SocketRocket-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		4A44537F1589EE9100B44ABB /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = "submodules/socket-rocket/SocketRocket/SRWebSocket.h"; sourceTree = SOURCE_ROOT; };
-		4A4453801589EE9100B44ABB /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = "submodules/socket-rocket/SocketRocket/SRWebSocket.m"; sourceTree = SOURCE_ROOT; };
 		4AD96DF21680853E00D9E42D /* SocketIOPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOPacket.h; sourceTree = SOURCE_ROOT; };
 		4AD96DF31680853E00D9E42D /* SocketIOPacket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOPacket.m; sourceTree = SOURCE_ROOT; };
 		4AD96DF616808B7900D9E42D /* SocketIOTransportWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SocketIOTransportWebsocket.h; path = ../SocketIOTransportWebsocket.h; sourceTree = "<group>"; };
@@ -99,6 +96,9 @@
 		4ADCCBEE15790FC70022990C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		4ADCCBF015790FD30022990C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		4ADCCBF215790FDF0022990C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		509FD4661A044D1700B284B8 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		509FD4671A044D1700B284B8 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
+		509FD4681A044D1700B284B8 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
 		9C00ADA71A030FF700E1EADC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9C00ADCF1A031D2100E1EADC /* Bowling.tif.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Bowling.tif.png; path = "User Icons/Bowling.tif.png"; sourceTree = SOURCE_ROOT; };
 		9C00ADD01A031D2100E1EADC /* Cactus.tif.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cactus.tif.png; path = "User Icons/Cactus.tif.png"; sourceTree = SOURCE_ROOT; };
@@ -169,9 +169,9 @@
 		4A4453791589EE7D00B44ABB /* SocketRocket */ = {
 			isa = PBXGroup;
 			children = (
-				4A44537E1589EE9100B44ABB /* SocketRocket-Prefix.pch */,
-				4A44537F1589EE9100B44ABB /* SRWebSocket.h */,
-				4A4453801589EE9100B44ABB /* SRWebSocket.m */,
+				509FD4661A044D1700B284B8 /* SocketRocket-Prefix.pch */,
+				509FD4671A044D1700B284B8 /* SRWebSocket.h */,
+				509FD4681A044D1700B284B8 /* SRWebSocket.m */,
 			);
 			name = SocketRocket;
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 				4ADCCBB215790D760022990C /* AppDelegate.m in Sources */,
 				4ADCCBB515790D760022990C /* ViewController.m in Sources */,
 				9C7B41CE1A04090D00DAB5D7 /* ContainerViewController.m in Sources */,
-				4A4453831589EE9100B44ABB /* SRWebSocket.m in Sources */,
+				509FD4691A044D1700B284B8 /* SRWebSocket.m in Sources */,
 				C9E391A215E2A1B00004693A /* SocketIOJSONSerialization.m in Sources */,
 				4AD96DF41680853E00D9E42D /* SocketIOPacket.m in Sources */,
 				4AD96DF816808B7900D9E42D /* SocketIOTransportWebsocket.m in Sources */,
