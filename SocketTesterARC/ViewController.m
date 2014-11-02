@@ -4,6 +4,20 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIView *container;
 @property (weak, nonatomic) IBOutlet UIImageView *main_circle;
+@property (weak, nonatomic) IBOutlet UILabel *location;
+@property (weak, nonatomic) IBOutlet UILabel *connectionStatus;
+@property (weak, nonatomic) IBOutlet UILabel *peopleCounter;
+@property (weak, nonatomic) IBOutlet UILabel *statusMessage;
+@property (weak, nonatomic) IBOutlet UITextField *statusUpdater;
+@property (weak, nonatomic) IBOutlet UIImageView *image1;
+@property (weak, nonatomic) IBOutlet UILabel *status1;
+@property (weak, nonatomic) IBOutlet UIButton *button1;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UILabel *status2;
+@property (weak, nonatomic) IBOutlet UIButton *button2;
+@property (weak, nonatomic) IBOutlet UITextField *typeBox;
+@property (weak, nonatomic) IBOutlet UITextView *chatHistory;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *msgicon;
 
 @end
 
@@ -26,7 +40,16 @@
     // startup location stuffs
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
+    self.statusUpdater.delegate = self;
+    self.typeBox.delegate = self;
+
     
+    [_statusMessage setText:@""];
+    [_status1 setText:@""];
+    [_status2 setText:@""];
+    
+    [_chatHistory setHidden:true];
+    [_typeBox setHidden:true];
     
     
     srand48(time(0));
@@ -42,11 +65,14 @@
     while (true)
     {
         rando = drand48()*size;
+        if ([filenames[rando] hasSuffix:@"x.png"])
+            continue;
         if ([filenames[rando] hasSuffix:@".png"] && ![filenames[rando] hasSuffix:@"b_.png"])
             break;
     }
     
     NSLog(@"Ch0osen file is : %@", filenames[rando]);
+    imagefilename = filenames[rando];
     NSLog(@"%@", _main_circle);
     
     // set the image
@@ -83,6 +109,9 @@
     
     // connect to the socket.io server that is running locally at port 3000
     [socketIO connectToHost:@"localhost" onPort:3007];
+    
+
+
 }
 
 # pragma mark -
@@ -91,6 +120,7 @@
 - (void) socketIODidConnect:(SocketIO *)socket
 {
     NSLog(@"socket.io connected.");
+    [_connectionStatus setText:@"Connection Status:\nConnected"];
     
     if (_id == 0)
     {
@@ -103,7 +133,6 @@
         [socketIO sendEvent:@"login" withData:[NSString stringWithFormat: @"%@", _id]];
     }
     
-    [socketIO sendEvent:@"set_status" withData: @"wasup"];
     [self.locationManager startUpdatingLocation];
 }
 
@@ -115,11 +144,36 @@
     {
         _id = packet.args[0][@"id"];
         [[NSUserDefaults standardUserDefaults] setObject:_id forKey:@"userId"];
+        [_connectionStatus setText:[NSString stringWithFormat:@"Connection Status:\nAssigned ID#%@", _id]];
         NSLog(@"Got ID: %@", _id);
     }
     else if ([packet.name isEqualToString:@"new_people"])
     {
-        NSLog(@"%@", packet.args);
+        NSLog(@"AAA: %@", packet.args);
+        [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
+        
+        [_image1 setImage:[UIImage imageNamed:packet.args[0][0][@"pic"]]];
+        [_status1 setText:packet.args[0][0][@"status"]];
+        if ([packet.args[0] count] > 1)
+        {
+            [_image2 setHidden:false];
+            [_image2 setImage:[UIImage imageNamed:packet.args[0][1][@"pic"]]];
+            [_status2 setText:packet.args[0][1][@"status"]];
+        }
+        else
+        {
+            [_image2 setHidden:true];
+            [_status2 setText:@""];
+        }
+    }
+    else if ([packet.name isEqualToString:@"get_message"])
+    {
+        NSLog(@"NONOONON: %@", packet.args);
+           [_chatHistory setText:[NSString stringWithFormat:@"%@\nThem: %@",_chatHistory.text, packet.args[0][@"msg"]]];
+        if(_chatHistory.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
+            [_chatHistory scrollRangeToVisible:bottom];
+        }
     }
 
     
@@ -135,15 +189,18 @@
     [socketIO sendMessage:@"hello back!" withAcknowledge:cb];
     
     // test different event data types
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:@"test1" forKey:@"key1"];
-    [dict setObject:@"test2" forKey:@"key2"];
-    [socketIO sendEvent:@"welcome" withData:dict];
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//    [dict setObject:@"test1" forKey:@"key1"];
+//    [dict setObject:@"test2" forKey:@"key2"];
+//    [socketIO sendEvent:@"welcome" withData:dict];
     
-    [socketIO sendEvent:@"welcome" withData:@"testWithString"];
+    [socketIO sendEvent:@"set_pic" withData:imagefilename];
+//    
+//    NSArray *arr = [NSArray arrayWithObjects:@"test1", @"test2", nil];
+//    [socketIO sendEvent:@"welcome" withData:arr];
     
-    NSArray *arr = [NSArray arrayWithObjects:@"test1", @"test2", nil];
-    [socketIO sendEvent:@"welcome" withData:arr];
+//    [_container addSubview:_main_circle];
+//    [self.view addSubview:_container];
     
 }
 
@@ -154,12 +211,14 @@
     } else {
         NSLog(@"onError() %@", error);
     }
+    [_connectionStatus setText:@"Connection Status:\nUnknown Error"];
 }
 
 
 - (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
 {
     NSLog(@"socket.io disconnected. did error occur? %@", error);
+    [_connectionStatus setText:@"Connection Status:\nDisconnected"];
 }
 
 # pragma mark -
@@ -174,15 +233,77 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _statusUpdater)
+    {
+        [socketIO sendEvent:@"set_status" withData: textField.text];
+        [_statusMessage setText: textField.text];
+        [textField resignFirstResponder];
+        [textField setText:@""];
+
+    }
+    else if (textField == _typeBox)
+    {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            [dict setObject:textField.text forKey:@"message"];
+        [dict setObject:[NSString stringWithFormat:@"%d",sendee] forKey:@"id"];
+            [socketIO sendEvent:@"send_message" withData:dict];
+        [_chatHistory setText:[NSString stringWithFormat:@"%@\nYou: %@",_chatHistory.text, _typeBox.text]];
+        [textField setText:@""];
+        if(_chatHistory.text.length > 0 ) {
+            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
+            [_chatHistory scrollRangeToVisible:bottom];
+        }
+
+    }
+
+    return YES;
+}
+
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = [locations lastObject];
-    [socketIO sendEvent:@"set_coordinates" withData: [NSString stringWithFormat:@"%f %f", location.coordinate.latitude, location.coordinate.longitude]];
-    [self.locationManager stopUpdatingLocation];
+    
+    // get locaiton
+    CLLocation *locationData = [locations lastObject];
+    NSString* locationString = [NSString stringWithFormat:@"%f %f", locationData.coordinate.latitude, locationData.coordinate.longitude];
+
+    // send location to server
+    [socketIO sendEvent:@"set_coordinates" withData: locationString];
+
+    // stop the locaiton daemon
+//    [self.locationManager stopUpdatingLocation];
     [socketIO sendEvent:@"get_people" withData: @"testWithString"];
+    
+    // update the location debug string
+    [_location setText:[NSString stringWithFormat:@"Current Location:\n%@", locationString]];
+    
+//    // animate main circle
 //    [UIView animateWithDuration:1.0 animations:^{
-//        _main_circle.frame =  CGRectMake(_main_circle.frame.origin.x, _main_circle.frame.origin.y, 150, 150);}];
-//    NSLog(@"HERE'S THE THING lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
+//        _container.frame =  CGRectMake(_container.frame.origin.x, _container.frame.origin.y, 100, 100);}];
+//    
+//    // animate main circle
+//    [UIView animateWithDuration:1.0 animations:^{
+//        _main_circle.frame =  CGRectMake(_main_circle.frame.origin.x, _main_circle.frame.origin.y, 100, 100);}];
+    
+    //    NSLog(@"HERE'S THE THING lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
 }
+- (IBAction)touchup:(id)sender {
+    [_chatHistory setHidden:false];
+    [_chatHistory setText:@"Chatting with a new partner\n"];
+    [_typeBox setHidden:false];
+    if ((UIButton *)sender == _button1) {
+        sendee = 1;
+    }
+    else if ((UIButton *)sender == _button2)
+        sendee = 2;
+    else if ((UIBarButtonItem *)sender == _msgicon)
+    {
+        [_chatHistory setHidden:true];
+        [self.view endEditing:YES];
+        [_typeBox setHidden:true];
+    }
+}
+
 
 @end

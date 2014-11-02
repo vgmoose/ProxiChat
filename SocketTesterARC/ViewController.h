@@ -10,10 +10,12 @@
 #import <CoreLocation/CoreLocation.h>
 #import "SocketIO.h"
 
-@interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate>
+@interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
     SocketIO *socketIO;
     NSString* _id;
+    NSString* imagefilename;
+    int sendee;
 }
 @property CLLocationManager *locationManager;
 
