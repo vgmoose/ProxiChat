@@ -9,17 +9,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *peopleCounter;
 @property (weak, nonatomic) IBOutlet UILabel *statusMessage;
 @property (weak, nonatomic) IBOutlet UITextField *statusUpdater;
-@property (weak, nonatomic) IBOutlet UIImageView *image1;
-@property (weak, nonatomic) IBOutlet UILabel *status1;
-@property (weak, nonatomic) IBOutlet UIButton *button1;
-@property (weak, nonatomic) IBOutlet UIImageView *image2;
-@property (weak, nonatomic) IBOutlet UILabel *status2;
-@property (weak, nonatomic) IBOutlet UIButton *button2;
+
 @property (weak, nonatomic) IBOutlet UITextField *typeBox;
 @property (weak, nonatomic) IBOutlet UITextView *chatHistory;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *msgicon;
 
 @end
+
+NSMutableDictionary* peers;
 
 @implementation ViewController
 
@@ -45,11 +42,14 @@
 
     
     [_statusMessage setText:@""];
-    [_status1 setText:@""];
-    [_status2 setText:@""];
+//    [_status1 setText:@""];
+//    [_status2 setText:@""];
     
     [_chatHistory setHidden:true];
     [_typeBox setHidden:true];
+    
+    // create the peer mutable array
+    peers = [NSMutableArray init];
     
     
     srand48(time(0));
@@ -61,11 +61,11 @@
     NSLog(@"files: %@", filenames);
     int size = [filenames count];
     int rando;
-    
+
     while (true)
     {
         rando = drand48()*size;
-        if ([filenames[rando] hasSuffix:@"x.png"])
+        if ([filenames[rando] hasSuffix:@"x.png"] || [filenames[rando] hasPrefix:@"AppIcon"])
             continue;
         if ([filenames[rando] hasSuffix:@".png"] && ![filenames[rando] hasSuffix:@"b_.png"])
             break;
@@ -74,7 +74,7 @@
     NSLog(@"Ch0osen file is : %@", filenames[rando]);
     imagefilename = filenames[rando];
     NSLog(@"%@", _main_circle);
-    
+
     // set the image
     [_main_circle setImage:[UIImage imageNamed:filenames[rando]]];
     
@@ -83,7 +83,7 @@
     [self.main_circle.layer setCornerRadius:size2/2];
     [self.main_circle.layer setMasksToBounds:YES];
     self.main_circle.clipsToBounds = YES;
-    
+
     self.container.backgroundColor = [UIColor clearColor];
     self.container.layer.shadowColor = [UIColor blackColor].CGColor;
     self.container.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -91,7 +91,7 @@
     self.container.layer.shadowOffset = CGSizeMake(0.f, 5.f);
     self.container.layer.shadowOpacity = .5f;
     self.container.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.container.bounds cornerRadius:size2/2].CGPath;
-    
+
     // pass cookie(s) to handshake endpoint (e.g. for auth)
     NSDictionary *properties = [NSDictionary dictionaryWithObjectsAndKeys:
                                 @"localhost", NSHTTPCookieDomain,
@@ -108,7 +108,7 @@
     _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     
     // connect to the socket.io server that is running locally at port 3000
-    [socketIO connectToHost:@"localhost" onPort:3007];
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
     
 
 
@@ -148,23 +148,31 @@
         NSLog(@"Got ID: %@", _id);
     }
     else if ([packet.name isEqualToString:@"new_people"])
-    {
-        NSLog(@"AAA: %@", packet.args);
+    {        
+        // for each person
+        for (int x=0; x<[packet.args[0] count]; x++)
+        {
+            NSString* thisID = packet.args[0][x][@"id"];
+            Peer* thisPeer = [peers objectForKey:thisID];
+            
+            // if this id doesn't already exist in peer dict
+            if (!thisPeer)
+            {
+                // add the peer
+                Peer* thisPeer = [Peer init];
+                peers[thisID] = thisPeer;
+                
+                // set its information
+                thisPeer._id = thisID;
+            }
+            
+            // update peer information
+            thisPeer.status = packet.args[0][x][@"status"];
+            thisPeer.pic = packet.args[0][x][@"pic"];
+        }
+        
         [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
         
-        [_image1 setImage:[UIImage imageNamed:packet.args[0][0][@"pic"]]];
-        [_status1 setText:packet.args[0][0][@"status"]];
-        if ([packet.args[0] count] > 1)
-        {
-            [_image2 setHidden:false];
-            [_image2 setImage:[UIImage imageNamed:packet.args[0][1][@"pic"]]];
-            [_status2 setText:packet.args[0][1][@"status"]];
-        }
-        else
-        {
-            [_image2 setHidden:true];
-            [_status2 setText:@""];
-        }
     }
     else if ([packet.name isEqualToString:@"get_message"])
     {
@@ -212,6 +220,9 @@
         NSLog(@"onError() %@", error);
     }
     [_connectionStatus setText:@"Connection Status:\nUnknown Error"];
+    
+    // try to reconnect
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
 }
 
 
@@ -219,6 +230,9 @@
 {
     NSLog(@"socket.io disconnected. did error occur? %@", error);
     [_connectionStatus setText:@"Connection Status:\nDisconnected"];
+    
+    // try to reconnect
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
 }
 
 # pragma mark -
@@ -292,12 +306,14 @@
     [_chatHistory setHidden:false];
     [_chatHistory setText:@"Chatting with a new partner\n"];
     [_typeBox setHidden:false];
-    if ((UIButton *)sender == _button1) {
+ /*   if ((UIButton *)sender == _button1) {
         sendee = 1;
     }
     else if ((UIButton *)sender == _button2)
         sendee = 2;
-    else if ((UIBarButtonItem *)sender == _msgicon)
+    else 
+  */
+    if ((UIBarButtonItem *)sender == _msgicon)
     {
         [_chatHistory setHidden:true];
         [self.view endEditing:YES];

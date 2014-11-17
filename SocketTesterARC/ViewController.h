@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "SocketIO.h"
+#import "Peer.h"
 
 @interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
