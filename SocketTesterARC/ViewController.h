@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "SocketIO.h"
-#import "Peer.h"
+#import "ViewControllerAndPeer.h"
+@class Peer;
 
 @interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate, UITextFieldDelegate>
 {
@@ -18,6 +19,10 @@
     NSString* imagefilename;
     int sendee;
 }
+- (void)startConversationWith:(Peer*)friend;
+- (void)reflowPeers;
+//- (void) startConversationWith: (Peer*) friend;
 @property CLLocationManager *locationManager;
-
+@property BOOL dirty;
+@property Peer* heldPeer;
 @end

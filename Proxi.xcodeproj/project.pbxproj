@@ -80,7 +80,7 @@
 		4AD96DF9168225FC00D9E42D /* SocketIOTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = SOURCE_ROOT; };
 		4AD96DFA16822DE300D9E42D /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = SOURCE_ROOT; };
 		4AD96DFB16822DE300D9E42D /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = SOURCE_ROOT; };
-		4ADCCB9D15790D760022990C /* SocketTesterARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocketTesterARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4ADCCB9D15790D760022990C /* Proxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADCCBA115790D760022990C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4ADCCBA315790D760022990C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4ADCCBA515790D760022990C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -138,6 +138,7 @@
 		9C00AE3C1A0328AE00E1EADC /* searchb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchb_.png; sourceTree = "<group>"; };
 		9C00AE3D1A0328AE00E1EADC /* settingsb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsb_.png; sourceTree = "<group>"; };
 		9C00AE3E1A0328AE00E1EADC /* starb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starb_.png; sourceTree = "<group>"; };
+		9C10417C1A1AE1D9001D5A3E /* ViewControllerAndPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerAndPeer.h; sourceTree = "<group>"; };
 		9C675DDA1A0612F50091F3CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocketTesterARC/Images.xcassets; sourceTree = "<group>"; };
 		9C7B41C71A03330400DAB5D7 /* mainView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = mainView.storyboard; path = ../mainView.storyboard; sourceTree = "<group>"; };
 		9CC1A0771A0C700A0019D74C /* Peer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Peer.h; path = ../Peer.h; sourceTree = "<group>"; };
@@ -191,7 +192,7 @@
 		4ADCCB9E15790D760022990C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4ADCCB9D15790D760022990C /* SocketTesterARC.app */,
+				4ADCCB9D15790D760022990C /* Proxi.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,6 +226,7 @@
 				4ADCCBB315790D760022990C /* ViewController.h */,
 				4ADCCBB415790D760022990C /* ViewController.m */,
 				9CC1A0771A0C700A0019D74C /* Peer.h */,
+				9C10417C1A1AE1D9001D5A3E /* ViewControllerAndPeer.h */,
 				9CC1A0781A0C700A0019D74C /* Peer.m */,
 				4ADCCBC615790DEC0022990C /* SocketIO.h */,
 				4ADCCBC715790DEC0022990C /* SocketIO.m */,
@@ -323,7 +325,7 @@
 			);
 			name = Proxi;
 			productName = SocketTesterARC;
-			productReference = 4ADCCB9D15790D760022990C /* SocketTesterARC.app */;
+			productReference = 4ADCCB9D15790D760022990C /* Proxi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

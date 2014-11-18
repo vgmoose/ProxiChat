@@ -11,7 +11,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *statusUpdater;
 
 @property (weak, nonatomic) IBOutlet UITextField *typeBox;
-@property (weak, nonatomic) IBOutlet UITextView *chatHistory;
+@property (weak, nonatomic) IBOutlet UIWebView *chatHistory;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *msgicon;
 
 @end
@@ -39,6 +39,8 @@ NSMutableDictionary* peers;
     self.locationManager.delegate = self;
     self.statusUpdater.delegate = self;
     self.typeBox.delegate = self;
+    
+    _dirty = true;
 
     
     [_statusMessage setText:@""];
@@ -50,7 +52,6 @@ NSMutableDictionary* peers;
     
     // create the peer mutable array
     peers = [NSMutableDictionary dictionary];
-    
     
     srand48(time(0));
     
@@ -104,6 +105,13 @@ NSMutableDictionary* peers;
     
     socketIO.cookies = cookies;
     
+    _chatHistory.layer.cornerRadius = 10;
+    _chatHistory.clipsToBounds = YES;
+    
+    [[_chatHistory layer] setBorderColor:
+     [[UIColor colorWithRed:0 green:0 blue:0 alpha:1] CGColor]];
+    [[_chatHistory layer] setBorderWidth:2];
+    
     // try to load an ID (defaults to zero)
     _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     
@@ -136,6 +144,40 @@ NSMutableDictionary* peers;
     [self.locationManager startUpdatingLocation];
 }
 
+- (void) reflowPeers
+{
+    int count = [peers count];
+    NSLog(@"Reflowing %d peers...", count);
+    NSMutableArray* keys = [NSMutableArray arrayWithArray:[peers allKeys]];
+    
+    // if a peer is being held
+    if (_heldPeer)
+    {
+        for (int x=0; x<[keys count]; x++)
+        {
+            if (peers[keys[x]] == _heldPeer)
+            {
+                [keys removeObjectAtIndex:x];
+                count--;
+                break;
+            }
+        }
+    }
+
+    for (int j = 0; j < count; j++)
+    {
+        
+        int x = 120 + sin(j*(2*3.14159265 / count)) * 110;
+        int y = 185 + cos(j*(2*3.14159265 / count)) * 110;
+        int ox = 120 + sin(j*(2*3.14159265 / count)) * 350;
+        int oy = 185 + cos(j*(2*3.14159265 / count)) * 350;
+//        NSLog(@"Telling %@ to tween to %d, %d",keys[j], x, y);
+        [peers[keys[j]] tweenTo: CGPointMake(x, y) startingAt: CGPointMake(ox, oy)];
+    }
+    
+    _dirty = false;
+}
+
 - (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
     NSLog(@"didReceiveEvent()");
@@ -162,43 +204,52 @@ NSMutableDictionary* peers;
                 Peer* thisPeer = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
                 peers[thisID] = thisPeer;
                 
+                thisPeer.myVC = self;
+                
                 // add the view to the GUI
                 [[self view] addSubview:thisPeer];
                 
                 // set its information
                 thisPeer._id = thisID;
+                
+                // mark bubble graph as dirty
+                _dirty = true;
             }
             
             // update peer information
             thisPeer.status = packet.args[0][x][@"status"];
             thisPeer.pic = packet.args[0][x][@"pic"];
             [thisPeer setImageString:thisPeer.pic];
+            [thisPeer setStatusString:thisPeer.status];
         }
         
+        if (_dirty)
+            [self reflowPeers];
         [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
         
     }
     else if ([packet.name isEqualToString:@"get_message"])
     {
-        NSLog(@"NONOONON: %@", packet.args);
-           [_chatHistory setText:[NSString stringWithFormat:@"%@\nThem: %@",_chatHistory.text, packet.args[0][@"msg"]]];
-        if(_chatHistory.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
-            [_chatHistory scrollRangeToVisible:bottom];
-        }
+//           [_chatHistory setText:[NSString stringWithFormat:@"%@\nThem: %@",_chatHistory.text, packet.args[0][@"msg"]]];
+//        if(_chatHistory.text.length > 0 ) {
+//            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
+//            [_chatHistory scrollRangeToVisible:bottom];
+//        }
     }
 
     
     // test acknowledge
-    SocketIOCallback cb = ^(id argsData) {
-        NSDictionary *response = argsData;
-        // do something with response
-        NSLog(@"ack arrived: %@", response);
-        
+//    SocketIOCallback cb = ^(id argsData) {
+//        NSDictionary *response = argsData;
+//        // do something with response
+//        NSLog(@"ack arrived: %@", response);
+    
         // test forced disconnect
-        [socketIO disconnectForced];
-    };
-    [socketIO sendMessage:@"hello back!" withAcknowledge:cb];
+//        [socketIO disconnectForced];
+//    };
+//    [socketIO sendMessage:@"hello back!" withAcknowledge:cb];
+    //    [socketIO sendEvent:@"set_pic" withData:imagefilename];
+
     
     // test different event data types
 //    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -206,8 +257,7 @@ NSMutableDictionary* peers;
 //    [dict setObject:@"test2" forKey:@"key2"];
 //    [socketIO sendEvent:@"welcome" withData:dict];
     
-    [socketIO sendEvent:@"set_pic" withData:imagefilename];
-//    
+//
 //    NSArray *arr = [NSArray arrayWithObjects:@"test1", @"test2", nil];
 //    [socketIO sendEvent:@"welcome" withData:arr];
     
@@ -227,6 +277,29 @@ NSMutableDictionary* peers;
     
     // try to reconnect
     [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+//    Peer* thisPeer = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//    Peer* thisPeer2 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//    peers[@"1"] = thisPeer;
+//    peers[@"2"] = thisPeer2;
+//    
+//    thisPeer.myVC = self;
+//    thisPeer2.myVC = self;
+//    
+//    // add the view to the GUI
+//    [[self view] addSubview:thisPeer];
+//    [[self view] addSubview:thisPeer2];
+//    
+//    // set its information
+//    thisPeer._id = @"1";
+//    thisPeer2._id = @"2";
+//    
+//    // update peer information
+//    thisPeer.pic = @"Zebra.tif.png";
+//    [thisPeer setImageString:thisPeer.pic];
+//    
+//    // update peer information
+//    thisPeer2.pic = @"Eagle.tif.png";
+//    [thisPeer2 setImageString:thisPeer2.pic];
 }
 
 
@@ -267,12 +340,17 @@ NSMutableDictionary* peers;
             [dict setObject:textField.text forKey:@"message"];
         [dict setObject:[NSString stringWithFormat:@"%d",sendee] forKey:@"id"];
             [socketIO sendEvent:@"send_message" withData:dict];
-        [_chatHistory setText:[NSString stringWithFormat:@"%@\nYou: %@",_chatHistory.text, _typeBox.text]];
+        NSString *embedHTML = @"<html><head></head><body><p>1. You agree that you will be the technician servicing this work order?.<br>2. You are comfortable with the scope of work on this work order?.<br>3. You understand that if you go to site and fail to do quality repair for  any reason, you will not be paid?.<br>4. You must dress business casual when going on the work order.</p></body></html>";
+        
+        _chatHistory.userInteractionEnabled = NO;
+        _chatHistory.opaque = NO;
+        _chatHistory.backgroundColor = [UIColor clearColor];
+        [_chatHistory loadHTMLString: embedHTML baseURL: nil];
         [textField setText:@""];
-        if(_chatHistory.text.length > 0 ) {
-            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
-            [_chatHistory scrollRangeToVisible:bottom];
-        }
+//        if(_chatHistory.text.length > 0 ) {
+//            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
+//            [_chatHistory scrollRangeToVisible:bottom];
+//        }
 
     }
 
@@ -306,10 +384,17 @@ NSMutableDictionary* peers;
     
     //    NSLog(@"HERE'S THE THING lat%f - lon%f", location.coordinate.latitude, location.coordinate.longitude);
 }
-- (IBAction)touchup:(id)sender {
+
+- (void)startConversationWith:(Peer*)friend {
     [_chatHistory setHidden:false];
-    [_chatHistory setText:@"Chatting with a new partner\n"];
+    [self.view bringSubviewToFront: _chatHistory];
+    [self.view bringSubviewToFront: _heldPeer];
+//    [_chatHistory setText:@"Chatting with a new partner\n"];
     [_typeBox setHidden:false];
+    sendee = [friend._id intValue];
+}
+    
+- (IBAction)touchup:(id)sender {
  /*   if ((UIButton *)sender == _button1) {
         sendee = 1;
     }
@@ -322,6 +407,8 @@ NSMutableDictionary* peers;
         [_chatHistory setHidden:true];
         [self.view endEditing:YES];
         [_typeBox setHidden:true];
+        _heldPeer = nil;
+        [self reflowPeers];
     }
 }
 

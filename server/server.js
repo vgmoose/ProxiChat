@@ -19,6 +19,16 @@ app.use(express.static(process.cwd() + '/img'));
 // add in the bots
 smatrix[27] = ({id: 27, lat: 37.331777, long: -122.03020302, status: "echo bot", pic: "Football.tif.png"});
 smatrix[28] = ({id: 28, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+smatrix[30] = ({id: 30, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+//
+smatrix[31] = ({id: 31, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+smatrix[32] = ({id: 32, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+//smatrix[33] = ({id: 33, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+//smatrix[34] = ({id: 34, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+//smatrix[35] = ({id: 35, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
+//
+
+
 smatrix[29] = ({id: 29, lat: 41.611111, long: -120.45555555, status: "another echo", pic: "Medal.tif.png"});
 
 app.get('/', function(req, res)
