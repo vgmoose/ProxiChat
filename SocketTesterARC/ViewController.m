@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *typeBox;
 @property (weak, nonatomic) IBOutlet UIWebView *chatHistory;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *msgicon;
+@property (weak, nonatomic) IBOutlet UIView *dimmer;
 
 @end
 
@@ -108,6 +109,13 @@ NSMutableDictionary* peers;
     _chatHistory.layer.cornerRadius = 10;
     _chatHistory.clipsToBounds = YES;
     
+    NSString *embedHTML = @"<br /><br /><br />";
+    
+    _chatHistory.userInteractionEnabled = YES;
+    _chatHistory.opaque = YES;
+    [_chatHistory loadHTMLString: embedHTML baseURL: nil];
+
+    
     [[_chatHistory layer] setBorderColor:
      [[UIColor colorWithRed:0 green:0 blue:0 alpha:1] CGColor]];
     [[_chatHistory layer] setBorderWidth:2];
@@ -167,8 +175,8 @@ NSMutableDictionary* peers;
     for (int j = 0; j < count; j++)
     {
         
-        int x = 120 + sin(j*(2*3.14159265 / count)) * 110;
-        int y = 185 + cos(j*(2*3.14159265 / count)) * 110;
+        int x = 120 + sin(j*(2*3.14159265 / count)) * 110 + drand48()*10-5;
+        int y = 185 + cos(j*(2*3.14159265 / count)) * 110 + drand48()*10-5;
         int ox = 120 + sin(j*(2*3.14159265 / count)) * 350;
         int oy = 185 + cos(j*(2*3.14159265 / count)) * 350;
 //        NSLog(@"Telling %@ to tween to %d, %d",keys[j], x, y);
@@ -229,8 +237,16 @@ NSMutableDictionary* peers;
         
     }
     else if ([packet.name isEqualToString:@"get_message"])
-    {
-//           [_chatHistory setText:[NSString stringWithFormat:@"%@\nThem: %@",_chatHistory.text, packet.args[0][@"msg"]]];
+    {        
+        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #c4c4c4; display:inline-block; float:left; font-family: Helvetica, arial, sans-serif; color: black; padding: 5px 10px'>%@</div>", _heldPeer.convo, packet.args[0][@"message"]];
+        _heldPeer.convo = embedHTML;
+        [_chatHistory loadHTMLString: embedHTML baseURL: nil];
+        
+        CGPoint bottomOffset = CGPointMake(0, self.chatHistory.scrollView.contentSize.height - self.chatHistory.scrollView.bounds.size.height);
+        [self.chatHistory.scrollView setContentOffset:bottomOffset animated:YES];
+        
+        
+//           [_chatHistory setText:];
 //        if(_chatHistory.text.length > 0 ) {
 //            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
 //            [_chatHistory scrollRangeToVisible:bottom];
@@ -340,12 +356,15 @@ NSMutableDictionary* peers;
             [dict setObject:textField.text forKey:@"message"];
         [dict setObject:[NSString stringWithFormat:@"%d",sendee] forKey:@"id"];
             [socketIO sendEvent:@"send_message" withData:dict];
-        NSString *embedHTML = @"<html><head></head><body><p>1. You agree that you will be the technician servicing this work order?.<br>2. You are comfortable with the scope of work on this work order?.<br>3. You understand that if you go to site and fail to do quality repair for  any reason, you will not be paid?.<br>4. You must dress business casual when going on the work order.</p></body></html>";
         
-        _chatHistory.userInteractionEnabled = NO;
-        _chatHistory.opaque = NO;
-        _chatHistory.backgroundColor = [UIColor clearColor];
+        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #47a9ff; display:inline-block; float:right; font-family: Helvetica, arial, sans-serif; color: white; padding: 5px 10px'>%@</div>", [_chatHistory stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"], _typeBox.text];
+        _heldPeer.convo = embedHTML;
+        
         [_chatHistory loadHTMLString: embedHTML baseURL: nil];
+        
+        CGPoint bottomOffset = CGPointMake(0, self.chatHistory.scrollView.contentSize.height - self.chatHistory.scrollView.bounds.size.height);
+        [self.chatHistory.scrollView setContentOffset:bottomOffset animated:YES];
+        
         [textField setText:@""];
 //        if(_chatHistory.text.length > 0 ) {
 //            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
@@ -387,13 +406,31 @@ NSMutableDictionary* peers;
 
 - (void)startConversationWith:(Peer*)friend {
     [_chatHistory setHidden:false];
+    [_dimmer setHidden:false];
+    [self.view bringSubviewToFront: _dimmer];
+    [self.view bringSubviewToFront: _typeBox];
     [self.view bringSubviewToFront: _chatHistory];
     [self.view bringSubviewToFront: _heldPeer];
+    [_typeBox becomeFirstResponder];
+    
+//        [_chatHistory loadHTMLString: friend.convo baseURL: nil];
+
 //    [_chatHistory setText:@"Chatting with a new partner\n"];
     [_typeBox setHidden:false];
     sendee = [friend._id intValue];
 }
+
+- (void)endConversation {
+    [_dimmer setHidden:true];
+    [_chatHistory setHidden:true];
+    [_typeBox setHidden:true];
+    [self.view endEditing:YES];
     
+    NSString *embedHTML = @"";
+    [_chatHistory loadHTMLString: embedHTML baseURL: nil];
+}
+
+
 - (IBAction)touchup:(id)sender {
  /*   if ((UIButton *)sender == _button1) {
         sendee = 1;

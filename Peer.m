@@ -19,6 +19,7 @@
     UITextView* tv = [[UITextView alloc] init];
     [tv setTag:12];
     
+    _convo = @"";
     [tv sizeToFit]; //added
     [tv layoutIfNeeded]; //added
     
@@ -54,8 +55,9 @@
         self.frame = CGRectMake(opoint.x, opoint.y, self.frame.size.width, self.frame.size.height);
         delay = 2;
     }
-    _shown = true;
 
+    _shown = true;
+    
     [UIView animateWithDuration:1
                           delay:delay
                         options: UIViewAnimationOptionCurveEaseIn
@@ -134,6 +136,7 @@
     else
     {
         _myVC.heldPeer = nil;
+        [_myVC endConversation];
         [_myVC reflowPeers];
     }
 }

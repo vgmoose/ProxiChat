@@ -21,6 +21,9 @@
 }
 - (void)startConversationWith:(Peer*)friend;
 - (void)reflowPeers;
+- (void)endConversation;
+- (void)scrollDown;
+
 //- (void) startConversationWith: (Peer*) friend;
 @property CLLocationManager *locationManager;
 @property BOOL dirty;

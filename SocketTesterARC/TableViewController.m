@@ -17,17 +17,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.titleObjectsArray = @[@"iPhone 6",
-                               @"iPhone 5S",
-                               @"iPhone 5",
-                               @"iPhone 4S",
-                               @"iPhone 4",];
+    self.titleObjectsArray = @[@"Nearby 33",
+                               @"Nearby 34",
+                               @"Zebrabot",
+                               @"Nearby 35",
+                               @"Nearby 36",];
     
-    self.subtitleObjectsArray = @[@"2014",
-                               @"2013",
-                               @"2012",
-                               @"2011",
-                               @"2010",];
+    self.subtitleObjectsArray = @[@"testing",
+                               @"hello",
+                               @"zebra!!",
+                               @"hello",
+                               @"hello",];
 
 }
 

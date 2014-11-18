@@ -16,17 +16,16 @@ counter = 0;
 
 app.use(express.static(process.cwd() + '/img'));
 
-// add in the bots
+// add in the Apple bots
 smatrix[27] = ({id: 27, lat: 37.331777, long: -122.03020302, status: "echo bot", pic: "Football.tif.png"});
 smatrix[28] = ({id: 28, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-smatrix[30] = ({id: 30, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-//
-smatrix[31] = ({id: 31, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-smatrix[32] = ({id: 32, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-//smatrix[33] = ({id: 33, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-//smatrix[34] = ({id: 34, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-//smatrix[35] = ({id: 35, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Zebra.tif.png"});
-//
+smatrix[30] = ({id: 30, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Bowling.tif.png"});
+smatrix[31] = ({id: 31, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Chalk.tif.png"});
+smatrix[32] = ({id: 32, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Dandelion.tif.png"});
+//smatrix[33] = ({id: 33, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Guitar.tif.png"});
+//smatrix[34] = ({id: 34, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Football.tif.png"});
+
+
 
 
 smatrix[29] = ({id: 29, lat: 41.611111, long: -120.45555555, status: "another echo", pic: "Medal.tif.png"});
@@ -140,10 +139,7 @@ io.sockets.on('connection', function(socket)
         var target = data.id;
         var message = data.message;
         
-        if (target == 1)
-            socket.emit("get_message", {msg: message});
-        if (target == 2)
-            socket.emit("get_message", {msg: "ZEBRA!!"});
+        socket.emit("get_message", data);
     });
 
     socket.on('get_move', function(data) {

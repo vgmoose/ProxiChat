@@ -19,6 +19,7 @@
 @property (assign, nonatomic) BOOL moved;
 - (void) tweenTo : (CGPoint) point startingAt:(CGPoint) opoint;
 @property (assign, nonatomic) ViewController* myVC;
+@property (assign, nonatomic) NSString* convo;
 - (void) setImageString : (NSString*) imagename;
 - (void) setStatusString : (NSString*) imagename;
 @end
