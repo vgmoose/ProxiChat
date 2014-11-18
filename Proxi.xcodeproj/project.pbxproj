@@ -64,9 +64,10 @@
 		9C00AE651A032B7300E1EADC /* SocketTesterARC-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ADCCBA915790D760022990C /* SocketTesterARC-Info.plist */; };
 		9C00AE661A032B7400E1EADC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4ADCCBAA15790D760022990C /* InfoPlist.strings */; };
 		9C675DDB1A0612F50091F3CB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C675DDA1A0612F50091F3CB /* Images.xcassets */; };
-		9C7B41C81A03330400DAB5D7 /* mainView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C7B41C71A03330400DAB5D7 /* mainView.storyboard */; };
 		9CC1A0791A0C700A0019D74C /* Peer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1A0781A0C700A0019D74C /* Peer.m */; };
 		9CCC6AE41A021D5B0027EDAA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CCC6AE31A021D5B0027EDAA /* CoreLocation.framework */; };
+		B643E3FA1A1B3F2000DE43DE /* mainView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B643E3F91A1B3F2000DE43DE /* mainView.storyboard */; };
+		B643E3FD1A1B49FF00DE43DE /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B643E3FC1A1B49FF00DE43DE /* TableViewController.m */; };
 		C9E391A215E2A1B00004693A /* SocketIOJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E391A115E2A1B00004693A /* SocketIOJSONSerialization.m */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +81,11 @@
 		4AD96DF9168225FC00D9E42D /* SocketIOTransport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SocketIOTransport.h; sourceTree = SOURCE_ROOT; };
 		4AD96DFA16822DE300D9E42D /* SocketIOTransportXHR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOTransportXHR.h; sourceTree = SOURCE_ROOT; };
 		4AD96DFB16822DE300D9E42D /* SocketIOTransportXHR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOTransportXHR.m; sourceTree = SOURCE_ROOT; };
+<<<<<<< HEAD
 		4ADCCB9D15790D760022990C /* Proxi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+=======
+		4ADCCB9D15790D760022990C /* SocketTesterARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SocketTesterARC.app; path = Proxi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+>>>>>>> b78e801eafc3c32ec9676d0088e967b9eac53ead
 		4ADCCBA115790D760022990C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4ADCCBA315790D760022990C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4ADCCBA515790D760022990C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -140,10 +145,12 @@
 		9C00AE3E1A0328AE00E1EADC /* starb_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starb_.png; sourceTree = "<group>"; };
 		9C10417C1A1AE1D9001D5A3E /* ViewControllerAndPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewControllerAndPeer.h; sourceTree = "<group>"; };
 		9C675DDA1A0612F50091F3CB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SocketTesterARC/Images.xcassets; sourceTree = "<group>"; };
-		9C7B41C71A03330400DAB5D7 /* mainView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = mainView.storyboard; path = ../mainView.storyboard; sourceTree = "<group>"; };
 		9CC1A0771A0C700A0019D74C /* Peer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Peer.h; path = ../Peer.h; sourceTree = "<group>"; };
 		9CC1A0781A0C700A0019D74C /* Peer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Peer.m; path = ../Peer.m; sourceTree = "<group>"; };
 		9CCC6AE31A021D5B0027EDAA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B643E3F91A1B3F2000DE43DE /* mainView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = mainView.storyboard; sourceTree = "<group>"; };
+		B643E3FB1A1B49FF00DE43DE /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		B643E3FC1A1B49FF00DE43DE /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		C9E391A015E2A1B00004693A /* SocketIOJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketIOJSONSerialization.h; sourceTree = SOURCE_ROOT; };
 		C9E391A115E2A1B00004693A /* SocketIOJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketIOJSONSerialization.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -221,7 +228,9 @@
 				9C00ADCE1A031D0200E1EADC /* User Icons */,
 				4A4453791589EE7D00B44ABB /* SocketRocket */,
 				4ADCCBB015790D760022990C /* AppDelegate.h */,
-				9C7B41C71A03330400DAB5D7 /* mainView.storyboard */,
+				B643E3F91A1B3F2000DE43DE /* mainView.storyboard */,
+				B643E3FB1A1B49FF00DE43DE /* TableViewController.h */,
+				B643E3FC1A1B49FF00DE43DE /* TableViewController.m */,
 				4ADCCBB115790D760022990C /* AppDelegate.m */,
 				4ADCCBB315790D760022990C /* ViewController.h */,
 				4ADCCBB415790D760022990C /* ViewController.m */,
@@ -390,8 +399,8 @@
 				9C00AE601A032B6700E1EADC /* Violin.tif.png in Resources */,
 				9C00AE611A032B6700E1EADC /* Whiterose.tif.png in Resources */,
 				9C00AE621A032B6700E1EADC /* Zebra.tif.png in Resources */,
-				9C7B41C81A03330400DAB5D7 /* mainView.storyboard in Resources */,
 				9C00AE631A032B6700E1EADC /* Zen.tif.png in Resources */,
+				B643E3FA1A1B3F2000DE43DE /* mainView.storyboard in Resources */,
 				9C675DDB1A0612F50091F3CB /* Images.xcassets in Resources */,
 				9C00AE401A0328AE00E1EADC /* circleb_.png in Resources */,
 				9C00AE431A0328AE00E1EADC /* searchb_.png in Resources */,
@@ -410,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B643E3FD1A1B49FF00DE43DE /* TableViewController.m in Sources */,
 				4ADCCD4D157915F00022990C /* SocketIO.m in Sources */,
 				4ADCCBAE15790D760022990C /* main.m in Sources */,
 				4ADCCBB215790D760022990C /* AppDelegate.m in Sources */,
