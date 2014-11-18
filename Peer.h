@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Peer : NSObject
+@interface Peer : UIView
 @property (strong, nonatomic) NSString* _id;
 @property (strong, nonatomic) NSString* status;
 @property (strong, nonatomic) NSString* pic;
-@property (strong, nonatomic) UIView* bubble;
-
+- (void) setImageString : (NSString*) imagename;
 @end
 
 //NSString* name;

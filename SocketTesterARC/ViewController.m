@@ -49,7 +49,7 @@ NSMutableDictionary* peers;
     [_typeBox setHidden:true];
     
     // create the peer mutable array
-    peers = [NSMutableArray init];
+    peers = [NSMutableDictionary dictionary];
     
     
     srand48(time(0));
@@ -71,7 +71,7 @@ NSMutableDictionary* peers;
             break;
     }
     
-    NSLog(@"Ch0osen file is : %@", filenames[rando]);
+    NSLog(@"Chosen file is : %@", filenames[rando]);
     imagefilename = filenames[rando];
     NSLog(@"%@", _main_circle);
 
@@ -159,8 +159,11 @@ NSMutableDictionary* peers;
             if (!thisPeer)
             {
                 // add the peer
-                Peer* thisPeer = [Peer init];
+                Peer* thisPeer = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
                 peers[thisID] = thisPeer;
+                
+                // add the view to the GUI
+                [[self view] addSubview:thisPeer];
                 
                 // set its information
                 thisPeer._id = thisID;
@@ -169,6 +172,7 @@ NSMutableDictionary* peers;
             // update peer information
             thisPeer.status = packet.args[0][x][@"status"];
             thisPeer.pic = packet.args[0][x][@"pic"];
+            [thisPeer setImageString:thisPeer.pic];
         }
         
         [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
