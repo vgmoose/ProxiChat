@@ -119,7 +119,7 @@ NSMutableDictionary* peers;
 
     
     [[_chatHistory layer] setBorderColor:
-     [[UIColor colorWithRed:0 green:0 blue:0 alpha:1] CGColor]];
+     [[UIColor colorWithRed:255 green:255 blue:255 alpha:1] CGColor]];
     [[_chatHistory layer] setBorderWidth:2];
     
     // try to load an ID (defaults to zero)
