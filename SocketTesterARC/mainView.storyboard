@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A379b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hmH-9c-rvM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hmH-9c-rvM">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -84,7 +84,7 @@ Connecting...</string>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <webView alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DZ-Yt-L8N">
-                                <rect key="frame" x="15" y="25" width="285" height="250"/>
+                                <rect key="frame" x="15" y="38" width="285" height="237"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-tZ-l7F">
@@ -112,7 +112,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="362" y="1572"/>
         </scene>
-        <!--Table View Controller - Recent Conversations-->
+        <!--Recent Conversations-->
         <scene sceneID="6Pn-hP-FNt">
             <objects>
                 <tableViewController id="mcH-Un-c2U" customClass="TableViewController" sceneMemberID="viewController">
@@ -163,7 +163,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="1572"/>
         </scene>
-        <!--Navigation Controller - Recent-->
+        <!--Recent-->
         <scene sceneID="hT8-OS-eTK">
             <objects>
                 <navigationController id="ddG-YY-hxJ" sceneMemberID="viewController">
@@ -180,7 +180,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="1537" y="1572"/>
         </scene>
-        <!--Table View Controller - Favorites-->
+        <!--Favorites-->
         <scene sceneID="Ggn-va-dqo">
             <objects>
                 <tableViewController id="ulC-vi-Q93" sceneMemberID="viewController">
@@ -231,7 +231,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="2318"/>
         </scene>
-        <!--Navigation Controller - Favorites-->
+        <!--Favorites-->
         <scene sceneID="5He-o6-Gld">
             <objects>
                 <navigationController id="38t-nq-PMi" sceneMemberID="viewController">
@@ -268,7 +268,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="884" y="1572"/>
         </scene>
-        <!--Table View Controller - Nearby People-->
+        <!--Nearby People-->
         <scene sceneID="bSD-qb-XVt">
             <objects>
                 <tableViewController id="ESV-gv-PUk" sceneMemberID="viewController">
@@ -319,7 +319,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="899"/>
         </scene>
-        <!--Navigation Controller - Nearby-->
+        <!--Nearby-->
         <scene sceneID="enh-Pf-gvp">
             <objects>
                 <navigationController id="Gk3-km-8Yu" sceneMemberID="viewController">
