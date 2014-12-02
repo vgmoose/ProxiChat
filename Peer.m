@@ -112,7 +112,7 @@
                          {
                          [UIView animateWithDuration:0.5 animations:^() {
                              UILabel* tv = (UILabel*)[self viewWithTag:12];
-                             if (! self._myVC.permafloat)
+                             if (! self.myVC.permafloat)
                                  tv.alpha = 1;
                          }];
                          }
