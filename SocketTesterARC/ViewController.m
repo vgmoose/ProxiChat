@@ -400,7 +400,7 @@ NSMutableDictionary* peers;
         [dict setObject:[NSString stringWithFormat:@"%d",sendee] forKey:@"id"];
             [socketIO sendEvent:@"send_message" withData:dict];
         
-        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #47a9ff; display:inline-block; float:right; font-family: Helvetica, arial, sans-serif; color: white; padding: 5px 10px'>%@</div>", _heldPeer.convo, _typeBox.text];
+        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #47a9ff; display:inline-block; float:right; font-family: Helvetica, arial, sans-serif; color: white; padding: 5px 10px'>%@</div>", [_chatHistory stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"]a, _typeBox.text];
         _heldPeer.convo = embedHTML;
         
         [_chatHistory loadHTMLString: embedHTML baseURL: nil];
