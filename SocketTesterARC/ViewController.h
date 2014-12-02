@@ -29,4 +29,5 @@
 @property BOOL dirty;
 @property int counter;
 @property Peer* heldPeer;
+@property BOOL permafloat;
 @end

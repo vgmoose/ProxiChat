@@ -257,10 +257,8 @@ NSMutableDictionary* peers;
             [thisPeer setStatusString:thisPeer.status];
         }
         
-        if (_dirty)
-        {
+        if (_dirty || _permafloat)
             [self reflowPeers];
-        }
         [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
         
     }
@@ -513,6 +511,13 @@ NSMutableDictionary* peers;
         [self.view endEditing:YES];
         _heldPeer = nil;
         [self reflowPeers];
+        
+        
+    }
+    
+    if ((UIBarButtonItem *)sender == _msgicon)
+    {
+        _permafloat = !_permafloat;
     }
 }
 
