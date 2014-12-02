@@ -126,7 +126,7 @@ NSMutableDictionary* peers;
     _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     
     // connect to the socket.io server that is running locally at port 3000
-    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+    [socketIO connectToHost:@"72.19.86.119" onPort:3007];
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     // Being compiled with a Base SDK of iOS 8 or later
@@ -400,7 +400,7 @@ NSMutableDictionary* peers;
         [dict setObject:[NSString stringWithFormat:@"%d",sendee] forKey:@"id"];
             [socketIO sendEvent:@"send_message" withData:dict];
         
-        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #47a9ff; display:inline-block; float:right; font-family: Helvetica, arial, sans-serif; color: white; padding: 5px 10px'>%@</div>", [_chatHistory stringByEvaluatingJavaScriptFromString:@"document.body.outerHTML"], _typeBox.text];
+        NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #47a9ff; display:inline-block; float:right; font-family: Helvetica, arial, sans-serif; color: white; padding: 5px 10px'>%@</div>", _heldPeer.convo, _typeBox.text];
         _heldPeer.convo = embedHTML;
         
         [_chatHistory loadHTMLString: embedHTML baseURL: nil];
@@ -446,7 +446,9 @@ NSMutableDictionary* peers;
 
 - (void)startConversationWith:(Peer*)friend {
     [_chatHistory setHidden:false];
-    [_dimmer setHidden:false];
+    [UIView animateWithDuration:0.5 animations:^() {
+        _dimmer.alpha = 0.55;
+    }];
     [self.view bringSubviewToFront: _dimmer];
     [self.view bringSubviewToFront: _typeBox];
     [self.view bringSubviewToFront: _chatHistory];
@@ -461,7 +463,9 @@ NSMutableDictionary* peers;
 }
 
 - (void)endConversation {
-    [_dimmer setHidden:true];
+    [UIView animateWithDuration:0.5 animations:^() {
+        _dimmer.alpha = 0;
+    }];
     [_chatHistory setHidden:true];
     [_typeBox setHidden:true];
     [self.view endEditing:YES];
@@ -472,9 +476,8 @@ NSMutableDictionary* peers;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"it's like we aren't even trying");
     CGPoint bottomOffset = CGPointMake(0, webView.scrollView.contentSize.height - webView.scrollView.bounds.size.height);
-    [webView.scrollView setContentOffset:bottomOffset animated:YES];
+    [webView.scrollView setContentOffset:bottomOffset animated:NO];
 }
 
 
