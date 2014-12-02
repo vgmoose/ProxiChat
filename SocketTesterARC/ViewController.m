@@ -180,6 +180,11 @@ NSMutableDictionary* peers;
         {
             if (peers[keys[x]] == _heldPeer)
             {
+                [UIView animateWithDuration:0.5 animations:^() {
+                    UILabel* tv = (UILabel*)[_heldPeer viewWithTag:12];
+                    tv.alpha = 0;
+                }];
+                
                 [keys removeObjectAtIndex:x];
                 count--;
                 break;
@@ -195,7 +200,13 @@ NSMutableDictionary* peers;
         int ox = 120 + sin(j*(2*3.14159265 / count)) * 360;
         int oy = 230 + cos(j*(2*3.14159265 / count)) * 360;
 //        NSLog(@"Telling %@ to tween to %d, %d",keys[j], x, y);
+
         [peers[keys[j]] tweenTo: CGPointMake(x, y) startingAt: CGPointMake(ox, oy)];
+        
+        [UIView animateWithDuration:0.5 animations:^() {
+            UILabel* tv = (UILabel*)[peers[keys[j]] viewWithTag:12];
+            tv.alpha = 0;
+        }];
     }
     
     _dirty = false;

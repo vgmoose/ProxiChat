@@ -107,7 +107,15 @@
                      animations:^{
                          self.frame = CGRectMake(point.x, point.y, self.frame.size.width, self.frame.size.height);
                      }
-                     completion:nil];
+                     completion:^(BOOL finished){
+                         if (finished)
+                         {
+                         [UIView animateWithDuration:0.5 animations:^() {
+                             UILabel* tv = (UILabel*)[self viewWithTag:12];
+                             tv.alpha = 1;
+                         }];
+                         }
+                     }];
     NSLog(@"ANIMATION COMPLETED");
 
 }
