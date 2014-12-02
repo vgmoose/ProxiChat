@@ -126,6 +126,19 @@ NSMutableDictionary* peers;
     // connect to the socket.io server that is running locally at port 3000
     [socketIO connectToHost:@"127.0.0.1" onPort:3007];
     
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    // Being compiled with a Base SDK of iOS 8 or later
+    // Now do a runtime check to be sure the method is supported
+    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+        [self.locationManager requestAlwaysAuthorization];
+    } else {
+        // No such method on this device - do something else as needed
+    }
+#else
+    // Being compiled with a Base SDK of iOS 7.x or earlier
+    // No such method - do something else as needed
+#endif
+    [self.locationManager startUpdatingLocation];
 
 
 }
@@ -149,7 +162,7 @@ NSMutableDictionary* peers;
         [socketIO sendEvent:@"login" withData:[NSString stringWithFormat: @"%@", _id]];
     }
     
-    [self.locationManager startUpdatingLocation];
+
 }
 
 - (void) reflowPeers
@@ -292,22 +305,42 @@ NSMutableDictionary* peers;
     [_connectionStatus setText:@"Connection Status:\nUnknown Error"];
     
     // try to reconnect
-    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+//    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+    
 //    Peer* thisPeer = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
 //    Peer* thisPeer2 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//    Peer* thisPeer3 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//    Peer* thisPeer4 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//    Peer* thisPeer5 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
+//
 //    peers[@"1"] = thisPeer;
 //    peers[@"2"] = thisPeer2;
+//    peers[@"3"] = thisPeer3;
+//    peers[@"4"] = thisPeer4;
+//    peers[@"5"] = thisPeer5;
+//
 //    
 //    thisPeer.myVC = self;
 //    thisPeer2.myVC = self;
+//    thisPeer3.myVC = self;
+//    thisPeer4.myVC = self;
+//    thisPeer5.myVC = self;
+//
 //    
 //    // add the view to the GUI
 //    [[self view] addSubview:thisPeer];
 //    [[self view] addSubview:thisPeer2];
+//    [[self view] addSubview:thisPeer3];
+//    [[self view] addSubview:thisPeer4];
+//    [[self view] addSubview:thisPeer5];
 //    
 //    // set its information
 //    thisPeer._id = @"1";
 //    thisPeer2._id = @"2";
+//    thisPeer3._id = @"3";
+//    thisPeer4._id = @"4";
+//    thisPeer5._id = @"5";
+//
 //    
 //    // update peer information
 //    thisPeer.pic = @"Zebra.tif.png";
@@ -316,6 +349,18 @@ NSMutableDictionary* peers;
 //    // update peer information
 //    thisPeer2.pic = @"Eagle.tif.png";
 //    [thisPeer2 setImageString:thisPeer2.pic];
+//    
+//    // update peer information
+//    thisPeer3.pic = @"Hockey.tif.png";
+//    [thisPeer3 setImageString:thisPeer3.pic];
+//    
+//    // update peer information
+//    thisPeer4.pic = @"Snowflake.tif.png";
+//    [thisPeer4 setImageString:thisPeer4.pic];
+//    
+//    // update peer information
+//    thisPeer5.pic = @"Guitar.tif.png";
+//    [thisPeer5 setImageString:thisPeer5.pic];
 }
 
 
@@ -325,7 +370,7 @@ NSMutableDictionary* peers;
     [_connectionStatus setText:@"Connection Status:\nDisconnected"];
     
     // try to reconnect
-    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+//    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
 }
 
 # pragma mark -

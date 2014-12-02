@@ -28,6 +28,10 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To pair you with nearby users.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To pair you with nearby users</string>
 	<key>UIMainStoryboardFile</key>
 	<string>mainView</string>
 	<key>UIRequiredDeviceCapabilities</key>
