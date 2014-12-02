@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ViewController.h"
 #import "Peer.h"
+#import <QuartzCore/QuartzCore.h>
 
 @protocol ViewControllerAndPeer <NSObject>
 

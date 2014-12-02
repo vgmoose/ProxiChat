@@ -16,21 +16,63 @@
     self.frame = frame;
     UIImageView* circ = [[UIImageView alloc] init];
     [circ setTag:11];
-    UITextView* tv = [[UITextView alloc] init];
+    UILabel* tv = [[UILabel alloc] init];
     [tv setTag:12];
     
     _convo = @"";
     [tv sizeToFit]; //added
     [tv layoutIfNeeded]; //added
     
-    tv.frame = CGRectMake(-20, -20, tv.frame.size.width, tv.frame.size.height);
+    tv.text = @"Hello";
+    
+    [tv.layer setCornerRadius:20];
 
     
     circ.frame = self.bounds;
-    tv.frame = self.bounds;
+    tv.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y+80, self.bounds.size.width, self.bounds.size.height-50);
+    
+    tv.textColor = [UIColor whiteColor];
+    
+    
+
+    UIColor * color = [UIColor colorWithRed:34/255.0f green:152/255.0f blue:255/255.0f alpha:1.0f];
+    tv.backgroundColor = color;
+    
+    CGSize size = tv.frame.size;
+    
+    /** Shadow */
+    CALayer *shadowLayer = [CALayer new];
+    shadowLayer.frame = CGRectMake(20,20,size.width,size.height);
+    shadowLayer.cornerRadius = 10;
+    
+    shadowLayer.backgroundColor = color.CGColor;
+    shadowLayer.shadowColor = [UIColor blackColor].CGColor;
+    shadowLayer.shadowOpacity = 0.6;
+    shadowLayer.shadowOffset = CGSizeMake(0,0);
+    shadowLayer.shadowRadius = 3;
+    
+    
+    
+    /** Label */
+    UILabel *label = tv;
+//    label.text = @"H";
+    label.textAlignment = UITextAlignmentCenter;
+//    label.frame = CGRectMake(0, 0, size.width, size.height);
+    label.backgroundColor = color;
+    label.layer.cornerRadius = 10;
+    [label.layer setMasksToBounds:YES];
+    label.backgroundColor = color;
+    
+    /** Add the Label to the shawdow layer */
+    [shadowLayer addSublayer:label.layer];
+    
+//    [self.layer addSublayer:shadowLayer];
+    
+
     _shown = false;
     
     [self addSubview:circ];
+    [self addSubview:tv];
     
     
 //    [UIView animateWithDuration:0
@@ -96,7 +138,7 @@
 
 - (void) setStatusString : (NSString*) statustext
 {
-    UITextView* tv = (UITextView*)[self viewWithTag:12];
+    UILabel* tv = (UILabel*)[self viewWithTag:12];
     [tv setText:statustext];
 }
 
@@ -148,6 +190,16 @@
     CGPoint location = [aTouch locationInView:self];
     CGPoint previousLocation = [aTouch previousLocationInView:self];
     self.frame = CGRectOffset(self.frame, (location.x - previousLocation.x), (location.y - previousLocation.y));
+    
+//    if (_myVC.heldPeer && aTouch.)
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No network connection"
+//                                                        message:@"You must be connected to the internet to use this app."
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//    }
 }
 
 
