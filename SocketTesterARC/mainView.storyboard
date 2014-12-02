@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hmH-9c-rvM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="14A379b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hmH-9c-rvM">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -18,16 +18,16 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iyT-eT-4gh">
-                                <rect key="frame" x="110" y="175" width="100" height="100"/>
+                                <rect key="frame" x="112" y="223" width="90" height="90"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kis-Jd-ZCQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="293" translatesAutoresizingMaskIntoConstraints="NO" id="w3D-kG-Csc">
-                                <rect key="frame" x="20" y="419" width="293" height="26"/>
+                                <rect key="frame" x="20" y="469" width="293" height="26"/>
                                 <string key="text">Current Location:
 Unknown</string>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
@@ -60,14 +60,14 @@ Unknown</string>
                                 <color key="barTintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="158" translatesAutoresizingMaskIntoConstraints="NO" id="Apz-E5-bAB">
-                                <rect key="frame" x="155" y="451" width="158" height="32"/>
+                                <rect key="frame" x="155" y="501" width="158" height="32"/>
                                 <string key="text">Connection Status:
 Connecting...</string>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="pUs-fa-lK4">
-                                <rect key="frame" x="20" y="453" width="130" height="28"/>
+                                <rect key="frame" x="20" y="503" width="130" height="28"/>
                                 <string key="text">People Nearby:
 0</string>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="13"/>
@@ -88,7 +88,7 @@ Connecting...</string>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0eh-tZ-l7F">
-                                <rect key="frame" x="0.0" y="19" width="337" height="579"/>
+                                <rect key="frame" x="-1" y="19" width="337" height="579"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -112,7 +112,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="362" y="1572"/>
         </scene>
-        <!--Recent Conversations-->
+        <!--Table View Controller - Recent Conversations-->
         <scene sceneID="6Pn-hP-FNt">
             <objects>
                 <tableViewController id="mcH-Un-c2U" customClass="TableViewController" sceneMemberID="viewController">
@@ -163,7 +163,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="1572"/>
         </scene>
-        <!--Recent-->
+        <!--Navigation Controller - Recent-->
         <scene sceneID="hT8-OS-eTK">
             <objects>
                 <navigationController id="ddG-YY-hxJ" sceneMemberID="viewController">
@@ -180,7 +180,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="1537" y="1572"/>
         </scene>
-        <!--Favorites-->
+        <!--Table View Controller - Favorites-->
         <scene sceneID="Ggn-va-dqo">
             <objects>
                 <tableViewController id="ulC-vi-Q93" sceneMemberID="viewController">
@@ -231,7 +231,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="2318"/>
         </scene>
-        <!--Favorites-->
+        <!--Navigation Controller - Favorites-->
         <scene sceneID="5He-o6-Gld">
             <objects>
                 <navigationController id="38t-nq-PMi" sceneMemberID="viewController">
@@ -268,7 +268,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="884" y="1572"/>
         </scene>
-        <!--Nearby People-->
+        <!--Table View Controller - Nearby People-->
         <scene sceneID="bSD-qb-XVt">
             <objects>
                 <tableViewController id="ESV-gv-PUk" sceneMemberID="viewController">
@@ -319,7 +319,7 @@ Connecting...</string>
             </objects>
             <point key="canvasLocation" x="2069" y="899"/>
         </scene>
-        <!--Nearby-->
+        <!--Navigation Controller - Nearby-->
         <scene sceneID="enh-Pf-gvp">
             <objects>
                 <navigationController id="Gk3-km-8Yu" sceneMemberID="viewController">

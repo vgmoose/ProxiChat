@@ -27,5 +27,6 @@
 //- (void) startConversationWith: (Peer*) friend;
 @property CLLocationManager *locationManager;
 @property BOOL dirty;
+@property int counter;
 @property Peer* heldPeer;
 @end

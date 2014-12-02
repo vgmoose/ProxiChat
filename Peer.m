@@ -32,7 +32,8 @@
     tv.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y+80, self.bounds.size.width, self.bounds.size.height-50);
     
     tv.textColor = [UIColor whiteColor];
-    
+    tv.font = [tv.font fontWithSize:13];
+
     
 
     UIColor * color = [UIColor colorWithRed:34/255.0f green:152/255.0f blue:255/255.0f alpha:1.0f];
@@ -51,7 +52,7 @@
     shadowLayer.shadowOffset = CGSizeMake(0,0);
     shadowLayer.shadowRadius = 3;
     
-    
+    tv.alpha = 0;
     
     /** Label */
     UILabel *label = tv;
@@ -59,14 +60,14 @@
     label.textAlignment = UITextAlignmentCenter;
 //    label.frame = CGRectMake(0, 0, size.width, size.height);
     label.backgroundColor = color;
-    label.layer.cornerRadius = 10;
+    label.layer.cornerRadius = 5;
     [label.layer setMasksToBounds:YES];
     label.backgroundColor = color;
     
     /** Add the Label to the shawdow layer */
     [shadowLayer addSublayer:label.layer];
     
-//    [self.layer addSublayer:shadowLayer];
+//    [tv.layer addSublayer:shadowLayer];
     
 
     _shown = false;
@@ -178,6 +179,7 @@
     else
     {
         _myVC.heldPeer = nil;
+        _myVC.counter = 0;
         [_myVC endConversation];
         [_myVC reflowPeers];
     }

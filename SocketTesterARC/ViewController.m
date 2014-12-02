@@ -126,7 +126,7 @@ NSMutableDictionary* peers;
     _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
     
     // connect to the socket.io server that is running locally at port 3000
-    [socketIO connectToHost:@"72.19.86.119" onPort:3007];
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
     
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
     // Being compiled with a Base SDK of iOS 8 or later
@@ -190,10 +190,10 @@ NSMutableDictionary* peers;
     for (int j = 0; j < count; j++)
     {
         
-        int x = 120 + sin(j*(2*3.14159265 / count)) * 110 + drand48()*10-5;
-        int y = 185 + cos(j*(2*3.14159265 / count)) * 110 + drand48()*10-5;
-        int ox = 120 + sin(j*(2*3.14159265 / count)) * 350;
-        int oy = 185 + cos(j*(2*3.14159265 / count)) * 350;
+        int x = 120 + sin(j*(2*3.14159265 / count)) * 120 + drand48()*10-5;
+        int y = 230 + cos(j*(2*3.14159265 / count)) * 120 + drand48()*10-5;
+        int ox = 120 + sin(j*(2*3.14159265 / count)) * 360;
+        int oy = 230 + cos(j*(2*3.14159265 / count)) * 360;
 //        NSLog(@"Telling %@ to tween to %d, %d",keys[j], x, y);
         [peers[keys[j]] tweenTo: CGPointMake(x, y) startingAt: CGPointMake(ox, oy)];
     }
@@ -247,7 +247,9 @@ NSMutableDictionary* peers;
         }
         
         if (_dirty)
+        {
             [self reflowPeers];
+        }
         [_peopleCounter setText:[NSString stringWithFormat:@"People Nearby:\n%d", [packet.args[0] count]]];
         
     }
