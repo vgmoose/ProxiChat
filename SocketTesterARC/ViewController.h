@@ -12,7 +12,7 @@
 #import "ViewControllerAndPeer.h"
 @class Peer;
 
-@interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface ViewController : UIViewController <SocketIODelegate, CLLocationManagerDelegate, UITextFieldDelegate, UIWebViewDelegate>
 {
     SocketIO *socketIO;
     NSString* _id;

@@ -40,6 +40,8 @@ NSMutableDictionary* peers;
     self.locationManager.delegate = self;
     self.statusUpdater.delegate = self;
     self.typeBox.delegate = self;
+    self.chatHistory.delegate = self;
+
     
     _dirty = true;
 
@@ -250,14 +252,10 @@ NSMutableDictionary* peers;
         
     }
     else if ([packet.name isEqualToString:@"get_message"])
-    {        
+    {
         NSString *embedHTML = [NSString stringWithFormat:@"%@<br style='clear:both'/><div style='border-radius:20px 20px 20px 20px; background-color: #c4c4c4; display:inline-block; float:left; font-family: Helvetica, arial, sans-serif; color: black; padding: 5px 10px'>%@</div>", _heldPeer.convo, packet.args[0][@"message"]];
         _heldPeer.convo = embedHTML;
         [_chatHistory loadHTMLString: embedHTML baseURL: nil];
-        
-        CGPoint bottomOffset = CGPointMake(0, self.chatHistory.scrollView.contentSize.height - self.chatHistory.scrollView.bounds.size.height);
-        [self.chatHistory.scrollView setContentOffset:bottomOffset animated:YES];
-        
         
 //           [_chatHistory setText:];
 //        if(_chatHistory.text.length > 0 ) {
@@ -407,9 +405,6 @@ NSMutableDictionary* peers;
         
         [_chatHistory loadHTMLString: embedHTML baseURL: nil];
         
-        CGPoint bottomOffset = CGPointMake(0, self.chatHistory.scrollView.contentSize.height - self.chatHistory.scrollView.bounds.size.height);
-        [self.chatHistory.scrollView setContentOffset:bottomOffset animated:YES];
-        
         [textField setText:@""];
 //        if(_chatHistory.text.length > 0 ) {
 //            NSRange bottom = NSMakeRange(_chatHistory.text.length -1, 1);
@@ -473,6 +468,13 @@ NSMutableDictionary* peers;
     
     NSString *embedHTML = @"";
     [_chatHistory loadHTMLString: embedHTML baseURL: nil];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"it's like we aren't even trying");
+    CGPoint bottomOffset = CGPointMake(0, webView.scrollView.contentSize.height - webView.scrollView.bounds.size.height);
+    [webView.scrollView setContentOffset:bottomOffset animated:YES];
 }
 
 
