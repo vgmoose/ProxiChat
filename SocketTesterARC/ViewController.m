@@ -50,8 +50,8 @@ NSMutableDictionary* peers;
 //    [_status1 setText:@""];
 //    [_status2 setText:@""];
     
-    [_chatHistory setHidden:true];
-    [_typeBox setHidden:true];
+//    [_chatHistory setHidden:true];
+//    [_typeBox setHidden:true];
     
     // create the peer mutable array
     peers = [NSMutableDictionary dictionary];
@@ -445,29 +445,31 @@ NSMutableDictionary* peers;
 }
 
 - (void)startConversationWith:(Peer*)friend {
-    [_chatHistory setHidden:false];
     [UIView animateWithDuration:0.5 animations:^() {
         _dimmer.alpha = 0.55;
+        _chatHistory.alpha = 1;
+        _typeBox.alpha = 1;
+        [_typeBox becomeFirstResponder];
+
     }];
     [self.view bringSubviewToFront: _dimmer];
     [self.view bringSubviewToFront: _typeBox];
     [self.view bringSubviewToFront: _chatHistory];
     [self.view bringSubviewToFront: _heldPeer];
-    [_typeBox becomeFirstResponder];
     
 //        [_chatHistory loadHTMLString: friend.convo baseURL: nil];
 
 //    [_chatHistory setText:@"Chatting with a new partner\n"];
-    [_typeBox setHidden:false];
     sendee = [friend._id intValue];
 }
 
 - (void)endConversation {
     [UIView animateWithDuration:0.5 animations:^() {
         _dimmer.alpha = 0;
+        _chatHistory.alpha = 0;
+        _typeBox.alpha = 0;
     }];
-    [_chatHistory setHidden:true];
-    [_typeBox setHidden:true];
+
     [self.view endEditing:YES];
     
     NSString *embedHTML = @"";
@@ -491,9 +493,11 @@ NSMutableDictionary* peers;
   */
     if ((UIBarButtonItem *)sender == _msgicon)
     {
-        [_chatHistory setHidden:true];
+        [UIView animateWithDuration:0.5 animations:^() {
+            _chatHistory.alpha = 0;
+            _typeBox.alpha = 0;
+        }];
         [self.view endEditing:YES];
-        [_typeBox setHidden:true];
         _heldPeer = nil;
         [self reflowPeers];
     }

@@ -22,7 +22,7 @@ smatrix[28] = ({id: 28, lat: 37.331888, long: -122.03030203, status: "zebra!!", 
 smatrix[30] = ({id: 30, lat: 37.331888, long: -122.03030203, status: "candlepin bowling is really cool", pic: "Bowling.tif.png"});
 smatrix[31] = ({id: 31, lat: 37.331888, long: -122.03030203, status: "math is for really cool people", pic: "Chalk.tif.png"});
 smatrix[32] = ({id: 32, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Dandelion.tif.png"});
-//smatrix[33] = ({id: 33, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Guitar.tif.png"});
+smatrix[33] = ({id: 33, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Guitar.tif.png"});
 //smatrix[34] = ({id: 34, lat: 37.331888, long: -122.03030203, status: "zebra!!", pic: "Football.tif.png"});
 
 
