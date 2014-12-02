@@ -305,7 +305,7 @@ NSMutableDictionary* peers;
     [_connectionStatus setText:@"Connection Status:\nUnknown Error"];
     
     // try to reconnect
-//    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
     
 //    Peer* thisPeer = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
 //    Peer* thisPeer2 = [[Peer alloc] initWithFrame:CGRectMake(150, 150, 75, 75)];
@@ -370,7 +370,7 @@ NSMutableDictionary* peers;
     [_connectionStatus setText:@"Connection Status:\nDisconnected"];
     
     // try to reconnect
-//    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
+    [socketIO connectToHost:@"127.0.0.1" onPort:3007];
 }
 
 # pragma mark -
