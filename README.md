@@ -15,4 +15,4 @@ Proxi Chat allows you to instantly view those around you who are also running th
 - custom artwork for avatars
 
 ### Coming soon to the iOS Store!
-![Demo](https://raw.githubusercontent.com/vgmoose/ProxiChat/master/demo1.gif)
+![Demo](https://raw.githubusercontent.com/vgmoose/ProxiChat/master/demo3.gif)
